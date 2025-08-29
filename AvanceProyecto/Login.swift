@@ -8,126 +8,130 @@
 import SwiftUI
 
 struct Login: View {
-  var body: some View {
-    ZStack() {
-      Group {
-        Text("Welcome to\nCosechiOS!")
-          .font(Font.custom("Inria Sans", size: 30).weight(.bold))
-          .foregroundColor(.black)
-          .offset(x: 0, y: -315.50)
-        Text("LOGIN")
-          .font(Font.custom("Inria Sans", size: 32))
-          .tracking(1.60)
-          .foregroundColor(.black)
-          .offset(x: 0.50, y: -212.50)
-        ZStack() {
-          Text("Email")
-            .font(Font.custom("Inria Sans", size: 20).weight(.bold))
-            .foregroundColor(Color(red: 0, green: 0, blue: 0).opacity(0.15))
-            .offset(x: 15, y: -1.50)
-          ZStack() {
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var rememberMe: Bool = false
+    
+    var body: some View {
+        ZStack {
+            VStack(spacing: 20) {
+                Text("Welcome to\nCosechiOS!")
+                    .font(Font.custom("Inria Sans", size: 30).weight(.bold))
+                    .foregroundColor(.black)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 40)
+                
+                Text("LOGIN")
+                    .font(Font.custom("Inria Sans", size: 32))
+                    .tracking(1.60)
+                    .foregroundColor(.black)
+                
+                // Email Field
+                TextField("Email", text: $email)
+                    .padding()
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(20)
+                    .frame(width: 340, height: 60)
+                    .autocapitalization(.none)
+                
+                // Password Field
+                SecureField("Password", text: $password)
+                    .padding()
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(20)
+                    .frame(width: 340, height: 60)
+                
+                HStack {
+                    Toggle(isOn: $rememberMe) {
+                        Text("Remember me")
+                            .font(Font.custom("Inria Sans", size: 15))
+                    }
+                    .toggleStyle(CheckboxToggleStyle())
+                    
+                    Spacer()
+                    
+                    Button("Forgot password?") {
+                        print("Forgot password tapped")
+                    }
+                    .font(Font.custom("Inria Sans", size: 15))
+                    .foregroundColor(.black)
+                }
+                .frame(width: 340)
+                
+                // Login Button
+                VStack(spacing: 16) {  // Espaciado vertical entre botones
 
-          }
-          .frame(width: 20, height: 18)
-          .offset(x: -141, y: 0)
+                    NavigationLink(destination: Home()) {
+                        Text("Continue")
+                            .font(Font.custom("Inria Sans", size: 24).weight(.bold))
+                            .foregroundColor(.white)
+                            .frame(width: 200, height: 50)
+                            .background(Color.black)
+                            .cornerRadius(10)
+                    }
+
+                    Text("or")
+                        .font(Font.custom("Inria Sans", size: 15).weight(.bold))
+                        .padding(.top)
+
+                    Button(action: {
+                        print("Continue with option 1")
+                    }) {
+                        HStack {
+                            Image(systemName: "person.circle")
+                            Text("Continue with")
+                        }
+                        .font(Font.custom("Inria Sans", size: 16).weight(.bold))
+                        .foregroundColor(.white)
+                        .frame(width: 200, height: 50)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                    }
+
+                    Button(action: {
+                        print("Continue with option 2")
+                    }) {
+                        HStack {
+                            Image(systemName: "applelogo")
+                            Text("Continue with")
+                        }
+                        .font(Font.custom("Inria Sans", size: 16).weight(.bold))
+                        .foregroundColor(.black)
+                        .frame(width: 200, height: 50)
+                        .background(Color.white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.black.opacity(0.5), lineWidth: 1)
+                        )
+                    }
+                }
+
+                    Spacer()
+                }
+                .padding()
+            }
+            .background(Color.white)
+            .cornerRadius(20)
         }
-        .frame(width: 340, height: 60)
-        .background(Color(red: 0, green: 0, blue: 0).opacity(0.05))
-        .cornerRadius(20)
-        .offset(x: 0, y: -127)
-        ZStack() {
-          Text("Password")
-            .font(Font.custom("Inria Sans", size: 20).weight(.bold))
-            .foregroundColor(Color(red: 0, green: 0, blue: 0).opacity(0.15))
-            .offset(x: 15, y: -1.50)
-          ZStack() {
-
-          }
-          .frame(width: 24, height: 24)
-          .offset(x: -140, y: 0)
-          ZStack() {
-
-          }
-          .frame(width: 25, height: 25)
-          .offset(x: 133.50, y: -0.50)
-        }
-        .frame(width: 340, height: 60)
-        .background(Color(red: 0, green: 0, blue: 0).opacity(0.05))
-        .cornerRadius(20)
-        .offset(x: 0, y: -30)
-        Text("Forgot password?")
-          .font(Font.custom("Inria Sans", size: 15))
-          .foregroundColor(.black)
-          .offset(x: 113, y: 27.50)
-        Text("or")
-          .font(Font.custom("Inria Sans", size: 15).weight(.bold))
-          .foregroundColor(.black)
-          .offset(x: 0, y: 149.50)
-        Text("Remember me")
-          .font(Font.custom("Inria Sans", size: 15))
-          .foregroundColor(.black)
-          .offset(x: -89, y: 27.50)
-        Rectangle()
-          .foregroundColor(.clear)
-          .frame(width: 200, height: 50)
-          .background(.black)
-          .cornerRadius(10)
-          .overlay(
-            RoundedRectangle(cornerRadius: 10)
-              .inset(by: 1)
-              .stroke(Color(red: 0, green: 0, blue: 0).opacity(0.50), lineWidth: 1)
-          )
-          .offset(x: 0, y: 92)
-        Rectangle()
-          .foregroundColor(.clear)
-          .frame(width: 200, height: 50)
-          .background(Color(red: 0, green: 0.40, blue: 1))
-          .cornerRadius(10)
-          .overlay(
-            RoundedRectangle(cornerRadius: 10)
-              .inset(by: 1)
-              .stroke(Color(red: 0, green: 0, blue: 0).opacity(0.50), lineWidth: 1)
-          )
-          .offset(x: 0, y: 207)
-        Rectangle()
-          .foregroundColor(.clear)
-          .frame(width: 200, height: 50)
-          .background(.white)
-          .cornerRadius(10)
-          .overlay(
-            RoundedRectangle(cornerRadius: 10)
-              .inset(by: 1)
-              .stroke(Color(red: 0, green: 0, blue: 0).opacity(0.50), lineWidth: 1)
-          )
-          .offset(x: 0, y: 281)
-      };Group {
-        Text("Continue")
-          .font(Font.custom("Inria Sans", size: 24).weight(.bold))
-          .foregroundColor(.white)
-          .offset(x: 0, y: 87.50)
-        Text("Continue with")
-          .font(Font.custom("Inria Sans", size: 16).weight(.bold))
-          .foregroundColor(.white)
-          .offset(x: -32, y: 205)
-        Text("Continue with")
-          .font(Font.custom("Inria Sans", size: 16).weight(.bold))
-          .foregroundColor(.black)
-          .offset(x: -32, y: 279)
-        ZStack() {
-
-        }
-        .frame(width: 26, height: 26)
-        .offset(x: 71, y: 281)
-      }
     }
-    .frame(width: 402, height: 874)
-    .background(.white)
-    .cornerRadius(20);
-  }
-}
+    
+    // Custom toggle style for checkbox look
+    struct CheckboxToggleStyle: ToggleStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            Button(action: {
+                configuration.isOn.toggle()
+            }) {
+                HStack {
+                    Image(systemName: configuration.isOn ? "checkmark.square" : "square")
+                    configuration.label
+                }
+            }
+        }
+    }
+    
 
 #Preview {
-    Login()
-        .modelContainer(for: Item.self, inMemory: true)
+    NavigationStack{
+        Login()
+    }
 }
-
